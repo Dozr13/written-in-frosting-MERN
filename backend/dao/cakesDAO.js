@@ -15,56 +15,106 @@ export default class CakesDAO {
     }
   }
 
-  static async addCake(name, flavor, color, allergyInfo, price) {
-    try {
-      const cake = {
-        name: name,
-        flavor: flavor,
-        color: color,
-        text: allergyInfo,
-        price: price,
-      };
-
-      return await cakes.insertOne(cake);
-    } catch (e) {
-      console.error(`Unable to post cake: ${e}`);
-      return { error: e };
-    }
-  }
-
-  static async updateCake(adminId, cakeId, name, flavor, color, text, price) {
-    try {
-      const updateResponse = await reviews.updateOne(
-        { admin_id: adminId, _id: ObjectId(cakeId) },
-        {
-          $set: {
-            name: name,
-            flavor: flavor,
-            color: color,
-            text: text,
-            price: price,
+  static async getCakes({ filters = null, page = 0, cakesPerPage = 20 } = {}) {
+    let query;
+    if (filters) {
+      if ("name" in filters) {
+        query = {
+          $text: {
+            $search: filters["name"],
           },
-        }
-      );
+        };
+      } else if ("color" in filters) {
+        query = {
+          color: {
+            $eq: filters["color"],
+          },
+        };
+      } else if ("price" in filters) {
+        query = {
+          "cake.price": {
+            $eq: filters["price"],
+          },
+        };
+      }
+    }
 
-      return updateResponse;
+    let cursor;
+
+    try {
+      cursor = await cakes.find(query);
     } catch (e) {
-      console.error(`Unable to update cake: ${e}`);
-      return { error: e };
+      console.error(`Unable to issue find command, ${e}`);
+      return { cakesList: [], totalNumCakes: 0 };
+    }
+
+    const displayCursor = cursor.limit(cakesPerPage).skip(cakesPerPage * page);
+
+    try {
+      const cakesList = await displayCursor.toArray();
+      const totalNumCakes = await cakes.countDocuments(query);
+
+      return { cakesList, totalNumCakes };
+    } catch (e) {
+      console.error(
+        `Unable to convert cursor to array or problem counting documents, ${e}`
+      );
+      return { cakesList: [], totalNumCakes: 0 };
     }
   }
 
-  static async deleteCake(adminId, cakeId) {
+  static async getCakeByID(id) {
     try {
-      const deleteResponse = await cakes.deleteOne({
-        _id: ObjectId(cakeId),
-        admin_id: adminId,
-      });
-
-      return deleteResponse;
+      const pipeline = [
+        {
+          $match: {
+            _id: new ObjectId(id),
+          },
+        },
+        {
+          $lookup: {
+            from: "cakes",
+            let: {
+              id: "$_id",
+            },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: ["$cake_id", "$$id"],
+                  },
+                },
+              },
+              // {
+              //   $sort: {
+              //     price: -1,
+              //   },
+              // },
+            ],
+            as: "cakes",
+          },
+        },
+        // {
+        //   $addFields: {
+        //     price: "$price",
+        //   },
+        // },
+      ];
+      return await cakes.aggregate(pipeline).next();
     } catch (e) {
-      console.error(`Unable to delete cake: ${e}`);
-      return { error: e };
+      console.error(`Something went wrong in getCakeByID: ${e}`);
+      throw e;
+    }
+  }
+
+  static async getFlavors() {
+    let flavor = [];
+    try {
+      flavor = await flavor.distinct("flavor");
+      return flavor;
+    } catch (e) {
+      console.error(`Unable to get flavors: ${e}`);
+      return flavor;
     }
   }
 }
