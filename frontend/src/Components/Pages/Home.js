@@ -10,9 +10,7 @@ function Home() {
           Creating special memories with sweet delicacies!
         </h2>
         <div className='carousel-container'>
-          <section className='cake-carousel'>
-            <CakeCarousel />
-          </section>
+          <section className='cake-carousel'>{/* <CakeCarousel /> */}</section>
         </div>
       </section>
       <section className='home-body'>{/* <Drop /> */}</section>

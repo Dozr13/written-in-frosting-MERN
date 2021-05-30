@@ -3,15 +3,18 @@ import Nav from "./Components/Header/Nav/NavBar";
 import Footer from "./Components/Footer/Footer";
 import routes from "./routes";
 
+import "normalize.css/normalize.css";
 import "./App.css";
 
 function App() {
   return (
-    <main className='main'>
-      <Nav />
-      {routes}
-      <Footer />
-    </main>
+    <div className='App'>
+      <main className='main'>
+        <Nav />
+        {routes}
+        <Footer />
+      </main>
+    </div>
   );
 }
 

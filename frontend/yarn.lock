@@ -6895,6 +6895,11 @@
     "array-includes" "^3.1.2"
     "object.assign" "^4.1.2"
 
+"keen-slider@^5.4.1":
+  "integrity" "sha512-CRBQDs7sQRxDRdQbHECuV2+IETD6UGp1bqnyNlbGM4trW9ObUTY39DWl/dLGh91x8qEepkCiYAO+w0B9gjEtkg=="
+  "resolved" "https://registry.npmjs.org/keen-slider/-/keen-slider-5.4.1.tgz"
+  "version" "5.4.1"
+
 "killable@^1.0.1":
   "integrity" "sha512-LzqtLKlUwirEUyl/nicirVmNiPvYs7l5n8wOPP7fyJVpUPkvCnW/vuiXGpylGUlnPDnB7311rARzAt3Mhswpjg=="
   "resolved" "https://registry.npmjs.org/killable/-/killable-1.0.1.tgz"
@@ -7656,6 +7661,11 @@
     "prepend-http" "^1.0.0"
     "query-string" "^4.1.0"
     "sort-keys" "^1.0.0"
+
+"normalize.css@^8.0.1":
+  "integrity" "sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg=="
+  "resolved" "https://registry.npmjs.org/normalize.css/-/normalize.css-8.0.1.tgz"
+  "version" "8.0.1"
 
 "npm-run-path@^2.0.0":
   "integrity" "sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8="
