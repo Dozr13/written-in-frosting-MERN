@@ -1,16 +1,10 @@
-body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .keen-slider {
   width: 90%;
 }
 
 [class^="number-slide"],
 [class*=" number-slide"] {
+  height: 400px;
   background: grey;
   display: flex;
   align-items: center;
@@ -18,8 +12,7 @@ body {
   font-size: 50px;
   color: #fff;
   font-weight: 500;
-  height: 300px;
-  max-height: 100vh;
+  max-height: 100%;
 }
 
 .number-slide1 {

@@ -3,19 +3,74 @@ import Slider from "../Slider/Slider";
 import CakeDataService from "../../services/cake";
 import styled from "styled-components";
 
-const Page = styled.div`
-  margin: 10%auto;
+const CakePage = styled.div`
+  height: 100%;
+  width: 100%;
 `;
 
-const PageColFlex = styled.div`
+const PageHeader = styled.h3`
+  font-size: 3.5rem;
+  margin-top: 5%;
+`;
+
+const ToggleSearchBtn = styled.button`
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 50px;
+  background-color: #efefa1;
+  padding: 0.3rem 1rem;
+  margin: 1rem;
+`;
+
+const SearchMenu = styled.div`
+  height: 50vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
+`;
+
+const SearchInput = styled.input`
+  height: 1.5rem;
+  width: 90%;
+  text-align: center;
+  margin: 0.7rem 0;
+`;
+
+const SearchSelect = styled.select`
+  height: 1.5rem;
+  width: 90%;
+  text-align: center;
+  margin: 0.7rem 0;
+`;
+
+const SearchBtn = styled.button`
+  height: 1.5rem;
+  width: 10%;
+`;
+
+const SliderFlexBox = styled.div`
+  display: flex;
   align-items: center;
   justify-content: center;
   margin: 5%;
 `;
 
-function Cakes(props) {
+const BrowseCakes = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const Card = styled.div`
+  height: 25vh;
+  width: 18vw;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 50px;
+`;
+
+const Cakes = (props) => {
   const [cakes, setCakes] = useState([]);
   const [searchColor, setSearchColor] = useState("");
   const [searchAllergyInfo, setSearchAllergyInfo] = useState("");
@@ -23,6 +78,8 @@ function Cakes(props) {
   const [searchName, setSearchName] = useState("");
   const [searchFlavor, setSearchFlavor] = useState("");
   const [flavors, setFlavors] = useState(["All Flavors"]);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     retrieveCakes();
@@ -44,9 +101,9 @@ function Cakes(props) {
     setSearchPrice(searchPrice);
   };
 
-  const onChangeSearchName = (e) => {
-    const searchName = e.target.value;
-    setSearchName(searchName);
+  const onChangeSearchFlavor = (e) => {
+    const searchFlavor = e.target.value;
+    setSearchFlavor(searchFlavor);
   };
 
   const retrieveCakes = () => {
@@ -98,10 +155,6 @@ function Cakes(props) {
     find(searchPrice, "price");
   };
 
-  const findByName = () => {
-    find(searchName, "name");
-  };
-
   const findByFlavor = () => {
     if (searchFlavor === "All Flavors") {
       refreshList();
@@ -110,13 +163,82 @@ function Cakes(props) {
     }
   };
 
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <Page>
-      <PageColFlex>
+    <CakePage>
+      <PageHeader>Cakes</PageHeader>
+
+      <SliderFlexBox>
         <Slider />
-      </PageColFlex>
-    </Page>
+      </SliderFlexBox>
+
+      <ToggleSearchBtn isOpen={isOpen} onClick={toggle}>
+        Open Search
+      </ToggleSearchBtn>
+
+      {isOpen && (
+        <SearchMenu>
+          <SearchInput
+            type='text'
+            placeholder='Search by color'
+            value={searchColor}
+            onChange={onChangeSearchColor}
+          />
+          <SearchBtn type='button' onClick={findByColor}>
+            Search
+          </SearchBtn>
+          <SearchInput
+            type='number'
+            placeholder='Search by price'
+            value={searchPrice}
+            onChange={onChangeSearchPrice}
+          />
+          <SearchBtn type='button' onClick={findByPrice}>
+            Search
+          </SearchBtn>
+          <SearchInput
+            type='text'
+            placeholder='Search by allergy info'
+            value={searchAllergyInfo}
+            onChange={onChangeSearchAllergyInfo}
+          />
+          <SearchBtn type='button' onClick={findByAllergyInfo}>
+            Search
+          </SearchBtn>
+
+          <SearchSelect onChange={onChangeSearchFlavor}>
+            {flavors.map((flavor) => {
+              return <option value={flavor}> {flavor.substr(0, 20)} </option>;
+            })}
+          </SearchSelect>
+          <SearchBtn
+            className='btn btn-outline-secondary'
+            type='button'
+            onClick={findByFlavor}
+          >
+            Search
+          </SearchBtn>
+        </SearchMenu>
+      )}
+
+      <BrowseCakes>
+        {cakes.map((cake) => {
+          return (
+            <Card>
+              <h5>
+                <strong>{cake.cake_name}</strong>
+              </h5>
+              <p>{cake.flavor}</p>
+              <p>{cake.price}</p>
+            </Card>
+          );
+        })}
+      </BrowseCakes>
+    </CakePage>
   );
-}
+};
 
 export default Cakes;

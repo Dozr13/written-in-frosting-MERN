@@ -3,7 +3,7 @@ import Nav from "./Components/Header/Nav/NavBar";
 import Footer from "./Components/Footer/Footer";
 import routes from "./routes";
 
-import "normalize.css/normalize.css";
+import "./Reset.css";
 import "./App.css";
 
 function App() {

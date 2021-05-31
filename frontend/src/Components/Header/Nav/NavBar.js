@@ -45,7 +45,7 @@ const SubSection = styled.div`
 `;
 
 const NavBar = (props) => {
-  const isMobile = useMediaQuery({ maxWidth: ScreenSize.mobile });
+  const isMobile = useMediaQuery({ maxWidth: ScreenSize.tablet });
 
   return (
     <NavContainer>

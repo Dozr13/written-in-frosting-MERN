@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
-import {NavLink as Link} from 'react-router-dom';
-import MenuButton from './MenuButton';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { NavLink as Link } from "react-router-dom";
+import MenuButton from "./MenuButton";
+import styled from "styled-components";
 
 const NavLinksContainer = styled.section`
   height: 100%;
   display: flex;
   align-items: center;
   padding: 1rem 0 0 0;
+  z-index: 100;
 `;
 
 const LinksWrapper = styled.ul`
@@ -38,27 +39,43 @@ const LinkItem = styled.li`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: #FFF;
+  color: #fff;
   font-size: inherit;
 `;
 
 const MobileNav = (props) => {
-  const [isOpen, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <NavLinksContainer>
-
-      <MenuButton isOpen={isOpen} toggle={() => setOpen(!isOpen)} />
+      <MenuButton isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} />
 
       {isOpen && (
-        <LinksWrapper><LinkItem><NavLink to='/' exact>Home</NavLink></LinkItem>
-          <LinkItem><NavLink to='/cakes' exact>Cakes</NavLink></LinkItem>
-          <LinkItem><NavLink to='/cupcakes' exact>Cupcakes</NavLink></LinkItem>
-          <LinkItem><NavLink to='/about' exact>About</NavLink></LinkItem>
+        <LinksWrapper>
+          <LinkItem>
+            <NavLink to='/' exact>
+              Home
+            </NavLink>
+          </LinkItem>
+          <LinkItem>
+            <NavLink to='/cakes' exact>
+              Cakes
+            </NavLink>
+          </LinkItem>
+          <LinkItem>
+            <NavLink to='/cupcakes' exact>
+              Cupcakes
+            </NavLink>
+          </LinkItem>
+          <LinkItem>
+            <NavLink to='/about' exact>
+              About
+            </NavLink>
+          </LinkItem>
         </LinksWrapper>
       )}
     </NavLinksContainer>
-  )
-}
+  );
+};
 
 export default MobileNav;

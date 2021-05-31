@@ -11,7 +11,7 @@ class CakeDataService {
     return http.get(`/id/${id}`);
   }
 
-  find(query, by = "name", page = 0) {
+  find(query, by = "flavor", page = 0) {
     return http.get(`?${by}=${query}&page=${page}`);
   }
 
