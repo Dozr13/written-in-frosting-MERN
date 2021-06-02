@@ -16,6 +16,7 @@ const LogoImg = styled.div`
     height: 100%;
     /* border-radius: 50%; */
   }
+  overflow: hidden;
 `;
 
 // const LogoText = styled.h2`

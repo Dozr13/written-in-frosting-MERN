@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 // import Drop from "../Admin/Drop";
-import CakeCarousel from "../Carousel/CakeCarousel";
+import styled from "styled-components";
+
+const HomePage = styled.div`
+  height: 100%;
+  width: 100%;
+`;
 
 function Home() {
   return (
-    <div id='page'>
+    <HomePage>
       <section className='home-header'>
         <h2 className='title'>
           Creating special memories with sweet delicacies!
@@ -14,7 +19,7 @@ function Home() {
         </div>
       </section>
       <section className='home-body'>{/* <Drop /> */}</section>
-    </div>
+    </HomePage>
   );
 }
 

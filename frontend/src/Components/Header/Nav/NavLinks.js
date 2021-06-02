@@ -1,6 +1,6 @@
-import React from 'react';
-import {NavLink as Link} from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import { NavLink as Link } from "react-router-dom";
+import styled from "styled-components";
 
 const NavLinksContainer = styled.section`
   height: 100%;
@@ -28,9 +28,9 @@ const LinkItem = styled.li`
   border-bottom: 3px solid transparent;
   transition: all 400ms ease-in-out;
   padding: 0 2rem;
-  
-  &:hover{
-    border-bottom: 3px solid #E1B1A0;
+
+  &:hover {
+    border-bottom: 3px solid #e1b1a0;
   }
 `;
 
@@ -38,19 +38,36 @@ const NavLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   font-size: inherit;
+  overflow: hidden;
 `;
 
 const NavLinks = (props) => {
   return (
     <NavLinksContainer>
       <LinksWrapper>
-        <LinkItem><NavLink to='/' exact>Home</NavLink></LinkItem>
-        <LinkItem><NavLink to='/cakes' exact>Cakes</NavLink></LinkItem>
-        <LinkItem><NavLink to='/cupcakes' exact>Cupcakes</NavLink></LinkItem>
-        <LinkItem><NavLink to='/about' exact>About</NavLink></LinkItem>
+        <LinkItem>
+          <NavLink to='/' exact>
+            Home
+          </NavLink>
+        </LinkItem>
+        <LinkItem>
+          <NavLink to='/cakes' exact>
+            Cakes
+          </NavLink>
+        </LinkItem>
+        <LinkItem>
+          <NavLink to='/cupcakes' exact>
+            Cupcakes
+          </NavLink>
+        </LinkItem>
+        <LinkItem>
+          <NavLink to='/about' exact>
+            About
+          </NavLink>
+        </LinkItem>
       </LinksWrapper>
     </NavLinksContainer>
-  )
-}
+  );
+};
 
 export default NavLinks;

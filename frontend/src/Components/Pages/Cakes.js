@@ -25,21 +25,22 @@ const ToggleSearchBtn = styled.button`
 const SearchMenu = styled.div`
   height: 50vh;
   width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 5px;
 `;
 
 const SearchInput = styled.input`
   height: 1.5rem;
-  width: 90%;
+  width: 30%;
   text-align: center;
   margin: 0.7rem 0;
 `;
 
 const SearchSelect = styled.select`
   height: 1.5rem;
-  width: 90%;
+  width: 30%;
   text-align: center;
   margin: 0.7rem 0;
 `;
@@ -58,13 +59,17 @@ const SliderFlexBox = styled.div`
 
 const BrowseCakes = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 `;
 
 const Card = styled.div`
   height: 25vh;
   width: 18vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   background-color: #fff;
   border: 2px solid #000;
   border-radius: 50px;
@@ -75,7 +80,6 @@ const Cakes = (props) => {
   const [searchColor, setSearchColor] = useState("");
   const [searchAllergyInfo, setSearchAllergyInfo] = useState("");
   const [searchPrice, setSearchPrice] = useState("");
-  const [searchName, setSearchName] = useState("");
   const [searchFlavor, setSearchFlavor] = useState("");
   const [flavors, setFlavors] = useState(["All Flavors"]);
 
@@ -182,6 +186,7 @@ const Cakes = (props) => {
       {isOpen && (
         <SearchMenu>
           <SearchInput
+            className='input1'
             type='text'
             placeholder='Search by color'
             value={searchColor}
@@ -191,6 +196,7 @@ const Cakes = (props) => {
             Search
           </SearchBtn>
           <SearchInput
+            className='input2'
             type='number'
             placeholder='Search by price'
             value={searchPrice}
@@ -228,11 +234,11 @@ const Cakes = (props) => {
         {cakes.map((cake) => {
           return (
             <Card>
-              <h5>
-                <strong>{cake.cake_name}</strong>
-              </h5>
-              <p>{cake.flavor}</p>
-              <p>{cake.price}</p>
+              <p style={{ fontSize: 18, fontWeight: 700, overflow: "hidden" }}>
+                {cake.cake_name}
+              </p>
+              <p style={{ overflow: "hidden" }}>{cake.flavor}</p>
+              <p style={{ overflow: "hidden" }}>{cake.price}</p>
             </Card>
           );
         })}

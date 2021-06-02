@@ -32,6 +32,7 @@ const LinkSection = styled.div`
   display: flex;
   flex: 2;
   justify-content: center;
+  overflow: hidden;
   z-index: 11;
 `;
 
@@ -41,7 +42,7 @@ const SubSection = styled.div`
   display: flex;
   position: absolute;
   top: 30px;
-  right: 0;
+  right: 20px;
 `;
 
 const NavBar = (props) => {
